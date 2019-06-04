@@ -40,11 +40,17 @@ class OrderSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'Owner doesn\'t have enough balance for this operation'
             )
-        with transaction.atomic():
-            UserProfile.objects.select_for_update().filter(pk=instance.owner.id)\
-                .update(balance=F('balance') - instance.price)
-            UserProfile.objects.select_for_update().filter(username=validated_data['executor'])\
-                .update(balance=F('balance') + instance.price)
+
+        try:
+            with transaction.atomic():
+                UserProfile.objects.select_for_update().filter(pk=instance.owner.id)\
+                    .update(balance=F('balance') - instance.price)
+                UserProfile.objects.select_for_update().filter(username=validated_data['executor'])\
+                    .update(balance=F('balance') + instance.price)
+        except:
+            raise serializers.ValidationError(
+                'Operation is not correct'
+            )
 
         Task.objects.filter(pk=instance.id).update(**validated_data)
 

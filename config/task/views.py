@@ -1,7 +1,6 @@
-from rest_framework import generics
-from django.http import JsonResponse
+from rest_framework import generics, serializers, status, response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 from .serializers import TaskSerializer, OrderSerializer
 from .permissions import IsOwnerOrReadOnly
 from .models import Task
