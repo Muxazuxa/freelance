@@ -2,10 +2,12 @@ version: '3'
 
 services:
   db:
-    image: postgres
+    image: 'postgres:alpine'
+    volumes:
+      - ./database:/var/lib/postgresql
   web:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: freelance
     volumes:
       - .:/freelance
@@ -13,3 +15,4 @@ services:
       - "8000:8000"
     depends_on:
       - db
+
