@@ -9,7 +9,7 @@ class Task(models.Model):
     executor = models.ForeignKey(UserProfile, related_name='executor', on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    price = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

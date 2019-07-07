@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: 'postgres:alpine'
+
     volumes:
       - ./database:/var/lib/postgresql
   web:
