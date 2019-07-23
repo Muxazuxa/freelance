@@ -8,6 +8,8 @@ services:
       - .:/freelance
     ports:
       - "8008:8008"
+    env_file:
+      - .env
     depends_on:
       - db
 

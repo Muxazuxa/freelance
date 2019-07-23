@@ -16,5 +16,6 @@ WORKDIR /freelance
 ADD . /freelance/
 
 # Install any needed packages specified in requirements.txt
+RUN pip install --upgrade pip
 RUN pip install pipenv
 RUN pipenv install --system
