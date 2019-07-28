@@ -15,7 +15,6 @@ services:
 
   db:
     image: 'postgres:11.4'
-
     volumes:
       - ./database:/var/lib/postgresql
 
